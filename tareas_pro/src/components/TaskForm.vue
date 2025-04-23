@@ -1,9 +1,10 @@
 <script setup>
 import { useTaskForm } from '@/composables/useFormTask'
 
-const emit = defineEmits(['add-task'])
+const emit = defineEmits(['add-task']) //emit para referenciar el formulario el cual tendra la informacion
 
-const { newTask, submitTask } = useTaskForm(emit)
+const { newTask, submitTask } = useTaskForm(emit) //se trae la variable que almacena las tareas por enviar y su 
+//funcion de envio
 </script>
 
 <template>
