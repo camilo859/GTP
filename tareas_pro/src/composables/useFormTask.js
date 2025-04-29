@@ -2,6 +2,7 @@ import { ref, onMounted } from 'vue'
 
 export function useTaskForm(emit) {
   // Variable para almacenar los datos del formulario
+  const existingTasks = []
   const newTask = ref({
     nombre: '',
     descripcion: '',
