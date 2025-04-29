@@ -61,19 +61,8 @@ const {
   </div>
 </template>
 <style scoped>
- :root {
-      --primary-color: #4a6fa5;
-      --secondary-color: #6b8cc7;
-      --accent-color: #ff6b6b;
-      --background-color: #f8f9fa;
-      --text-color: #333;
-      --border-radius: 10px;
-      --box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-      --transition: all 0.3s ease;
-    }
     
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--background-color);
       color: var(--text-color);
       margin: 0;
@@ -96,8 +85,7 @@ const {
     }
     
     
-    h2 {
-      color: var(--primary-color);
+    h2{
       margin-top: 0;
       font-size: 1.8rem;
       font-weight: 600;
@@ -175,6 +163,9 @@ const {
       margin-top: 0.5rem;
       border-left: 3px solid var(--secondary-color);
       animation: fadeIn 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
     
     @keyframes fadeIn {
@@ -182,19 +173,10 @@ const {
       to { opacity: 1; transform: translateY(0); }
     }
     
-    button[type="submit"] {
-      background: #000;
-      color: white;
-      border: none;
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 25px;
-      cursor: pointer;
-      display: block;
-      width: 100%;
-      transition: var(--transition);
-      box-shadow: 0 4px 12px rgba(74, 111, 165, 0.3);
+
+    button[type="button"]{
+      width: fit-content;
+      margin-top: 14px;
     }
     
     button[type="submit"]:hover {
