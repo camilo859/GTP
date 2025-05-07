@@ -1,47 +1,57 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import TaskForm from './components/TaskForm.vue'
+import MyTasks from './components/MyTasks.vue'  
+import { useTask } from '@/composables/useTask'  
+
+const { addItem } = useTask()  
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <TheWelcome />
+  <TaskForm @add-task="addItem" />
+  <MyTasks />
   </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+ :root {
+      --primary-color: #4a6fa5;
+      --secondary-color: #6b8cc7;
+      --accent-color: #ff6b6b;
+      --background-color: #f8f9fa;
+      --text-color: #333;
+      --border-radius: 10px;
+      --box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s ease;
+    }
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+main{
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
+button[type="submit"], button[type="button"] {
+      background: #000;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(74, 111, 165, 0.3);
+    }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+  @media (max-width: 768px) {
+    main{
+  display: grid;
+  grid-template-columns: 100%;
 }
+  }
 </style>
