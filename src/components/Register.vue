@@ -21,6 +21,7 @@
         </div>
         <button type="submit" class="btn-registrar">Registrarse</button>
         <button type="button" @click="cancelarRegistro" class="btn-cancelar">Cancelar</button>
+        <a href="http://localhost:5174/" class="sin-registro">Continuar sin registrarme</a>
       </form>
     </div>
   </div>
@@ -88,6 +89,11 @@ label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.sin-registro{
+  text-decoration: none;
+  color: #f44336;
 }
 
 input {

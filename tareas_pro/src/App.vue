@@ -9,7 +9,10 @@ const { addItem } = useTask()
 <template>
   <main>
   <TaskForm @add-task="addItem" />
-  <MyTasks />
+  <div class="show-taks">
+    <MyTasks />
+    <TaksDone />
+  </div>
   </main>
 </template>
 
@@ -32,6 +35,10 @@ body {
 main{
   display: grid;
   grid-template-columns: 50% 50%;
+}
+.show-taks{
+  display: grid;
+  grid-template-rows: 50% 50%;
 }
 button[type="submit"], button[type="button"] {
       background: #000;
