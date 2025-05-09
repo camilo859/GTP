@@ -1,18 +1,18 @@
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 
-const items = ref([]) //  FUERA de la función
-const initialized = ref(false) //  solo para no montar dos veces
+const items = ref([])
+let initialized = false
 
 export function useTask() {
-  if (!initialized.value) {
-    const savedItems = localStorage.getItem('myTasks')
-    if (savedItems) {
-      items.value = JSON.parse(savedItems)
-    }
+  if (!initialized) {
+    const saved = localStorage.getItem('myTasks')
+    if (saved) items.value = JSON.parse(saved)
+
     watch(items, (newValue) => {
       localStorage.setItem('myTasks', JSON.stringify(newValue))
     }, { deep: true })
-    initialized.value = true
+
+    initialized = true
   }
 
   const addItem = (task) => {
@@ -23,9 +23,17 @@ export function useTask() {
     items.value.splice(index, 1)
   }
 
+  const updateTask = (task, newData) => {
+    const i = items.value.findIndex(t => t === task)
+    if (i < 0) return
+    Object.assign(items.value[i], newData)
+    items.value = [...items.value] 
+  }
+
   return {
     items,
     addItem,
-    removeItem
+    removeItem,
+    updateTask,
   }
 }

@@ -27,7 +27,7 @@ vi.mock('vue', async () => {
   const actual = await vi.importActual('vue')
   return {
     ...actual,
-    onMounted: (fn) => fn(), // Ejecuta la función inmediatamente
+    onMounted: (fn) => fn(), // Ejecuta la funcion
     ref: (val) => ({ value: val }) // Simplificación de ref para pruebas
   }
 })
@@ -51,17 +51,17 @@ test('Verifica si un grupo ya existe', () => {
   // Verificamos que no se haya emitido el evento add-group para un grupo existente
   expect(emit).not.toHaveBeenCalledWith('add-group', 'Trabajo')
   
-  // La longitud del array de grupos no debería cambiar
+  // La longitud del array de grupos no deberia cambiar
   expect(grupos.value.length).toBe(3)
   
   // Ahora probamos con un grupo nuevo
   newGroup.value = 'Nuevo'
   addGroup()
   
-  // Debería emitir el evento para un grupo nuevo
+  // Deberia emitir el evento para un grupo nuevo
   expect(emit).toHaveBeenCalledWith('add-group', 'Nuevo')
   
-  // Y el array de grupos debería tener un elemento más
+  // Y el array de grupos deberia tener un elemento más
   expect(grupos.value.length).toBe(4)
 })
 
