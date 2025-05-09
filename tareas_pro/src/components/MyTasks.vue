@@ -1,13 +1,18 @@
 <template>
   <section>
-    <h2>Tus tareas</h2>
+    <h2 v-if="items.length > 0">Tus tareas</h2>
+    <h6 class="pendientes" v-else >No hay tareas pendientes</h6>
     <ul>
       <li v-for="(item, index) in items" :key="index">
         <form @submit.prevent="save">
           <div>
             <div class="task_delete"></div>
-
-            <h3>Tarea:
+            <input 
+              type="checkbox" 
+              @change="$event.target.checked && saveTaskDone(item)" 
+              class="end-task" 
+            />
+            <h3>Tarea:  
               <span v-if="editing !== item">{{ item.nombre }}</span>
               <input
                 v-else
@@ -49,7 +54,15 @@
               </p>
             </div>
 
-            <p v-if="item.group !== 'crear-nuevo'">Grupo: {{ item.group }}</p>
+            <p v-if="item.group !== 'crear-nuevo'">Grupo: {{ item.group }}
+              <label v-if="editing === item">
+                <select  v-model="updatedData.group">
+                  <option v-for="grupo in grupos" :key="grupo" :value="grupo">
+                  {{ grupo }}
+                  </option>
+                </select>
+              </label>
+            </p>
           </div>
           <div v-if="editing === item" class="edit-form">
             <button class="edit__button-save" type="submit">Guardar</button>
@@ -58,6 +71,7 @@
         </form>
       </li>
     </ul>
+    <span class="updateTask__message" v-if="message">{{message}}</span>
   </section>
 </template>
 <script setup>
@@ -65,10 +79,10 @@ import { useTask } from '@/composables/useTask'
 import { ref } from 'vue'
 // Desestructuramos el composable para obtener los items y la función removeItem
 const { items, removeItem,updateTask } = useTask()
-
+const message = ref(null)
 const editing = ref(null)
 const updatedData = ref({})
-
+const {grupos,saveTaskDone} = useTask()
 function startEdit(task) {
   editing.value = task
   const { updatedData: localData } = useUpdateTask(task)
@@ -76,8 +90,14 @@ function startEdit(task) {
 }
 
 function save() {
+  message.value = "Tarea Actualizada"
+  setTimeout(() => {
+    message.value = null
+  }, 3000)
   updateTask(editing.value, updatedData.value)
+
   editing.value = null
+  
 }
 
 function cancelEdit() {
@@ -99,6 +119,18 @@ section{
   font-size: 12px;
   
 }
+.end-task{
+  height: 20px;
+}
+.updateTask__message{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #000;
+  color: #fff;
+  padding: 20px;
+}
+
 h3{
   margin: 0;
 }
