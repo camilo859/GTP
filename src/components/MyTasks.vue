@@ -16,22 +16,27 @@ async function guardarCambios() {
     await api.put(`/tareas/${tareaEditada.value.idTarea}`, tareaEditada.value);
     tareaEditada.value = null;
     alert('Tarea actualizada');
-    emit('refresh-tasks');
+    
   } catch (err) {
     console.error('Error al actualizar tarea:', err);
     alert('Error al actualizar la tarea');
   }
+  emit('refresh-tasks');
+  
 }
+
+
 
 async function eliminarTarea(idTarea) {
   try {
     await api.delete(`/tareas/${idTarea}`);
     alert('Tarea eliminada');
-    emit('refresh-tasks'); // 👈 Aquí emites un evento para refrescar la lista
+    
   } catch (err) {
     console.error('Error al eliminar tarea:', err);
     alert('Error al eliminar la tarea');
   }
+  emit('refresh-tasks'); // 👈 Aquí emites un evento para refrescar la lista
 }
 
 </script>

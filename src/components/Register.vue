@@ -21,7 +21,7 @@
         </div>
         <button type="submit" class="btn-registrar">Registrarse</button>
         <button type="button" @click="cancelarRegistro" class="btn-cancelar">Cancelar</button>
-        <a href="http://localhost:5174/" class="sin-registro">Continuar sin registrarme</a>
+        <a href="http://localhost:5173/" class="sin-registro">Continuar sin registrarme</a>
       </form>
     </div>
   </div>
