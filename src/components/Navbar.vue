@@ -22,7 +22,7 @@
           <li><router-link to="/">Inicio</router-link></li>
           <li><a href="#conocer">Conocer</a></li>
           <li><router-link to="/login">Iniciar sesion</router-link></li>
-          <li><router-link to="/register">Registrar me</router-link></li>
+          <li><router-link to="/register">Registrarse</router-link></li>
         </ul>
         
         <!-- Mobile Navigation (shown when hamburger is clicked) -->
@@ -31,7 +31,7 @@
             <li><router-link to="/" @click="closeMobileMenu">Inicio</router-link></li>
             <li><a to="#conocer" @click="closeMobileMenu">Conocer</A></li>
             <li><router-link to="/login" @click="closeMobileMenu">Iniciar sesion</router-link></li>
-            <li><router-link to="/register" @click="closeMobileMenu">Registrar me</router-link></li>
+            <li><router-link to="/register" @click="closeMobileMenu">Registrarse</router-link></li>
           </ul>
         </transition>
       </div>

@@ -54,6 +54,8 @@
 import { ref } from 'vue';
 import api from '../api';
 
+defineEmits(['refresh-tasks']);//definición para refrescar la página
+
 const titulo = ref('');
 const descripcion = ref('');
 const fecha_vencimiento = ref('');
@@ -76,10 +78,14 @@ async function crearTarea() {
     descripcion.value = '';
     fecha_vencimiento.value = '';
     estado.value = 'pendiente';
+
   } catch (err) {
     console.error('Error al crear tarea:', err);
     alert('Error al crear la tarea');
   }
+
+emit('refresh-tasks');
+  
 }
 </script>
 
