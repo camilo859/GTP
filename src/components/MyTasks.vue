@@ -31,12 +31,21 @@ async function eliminarTarea(idTarea) {
   try {
     await api.delete(`/tareas/${idTarea}`);
     alert('Tarea eliminada');
-    
+    mostrarNotificacion(' Tarea eliminada correctamente');
   } catch (err) {
     console.error('Error al eliminar tarea:', err);
     alert('Error al eliminar la tarea');
   }
   emit('refresh-tasks'); // 👈 Aquí emites un evento para refrescar la lista
+}
+
+const notificaciones = ref([]);
+
+function mostrarNotificacion(mensaje) {
+  notificaciones.value.push(mensaje);
+  setTimeout(() => {
+    notificaciones.value.shift();
+  }, 3000);
 }
 
 </script>
@@ -72,6 +81,17 @@ async function eliminarTarea(idTarea) {
       </form>
     </div>
   </section>
+
+  <div class="notificaciones">
+    <div 
+      v-for="(msg, index) in notificaciones" 
+      :key="index" 
+      class="notificacion success"
+    >
+      {{ msg }}
+    </div>
+  </div>
+
 </template>
 
 <style scoped>
@@ -99,5 +119,28 @@ button {
   margin-right: 10px;
   padding: 6px 12px;
   cursor: pointer;
+}
+
+.notificaciones {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.notificacion {
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #28a745;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadein 0.3s;
+  margin-bottom: 10px;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
