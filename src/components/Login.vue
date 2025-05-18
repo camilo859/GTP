@@ -21,23 +21,23 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '../api';
-
+import { useToast } from 'vue-toast-notification';
 const router = useRouter();
 
 const correo = ref('');
 const contraseña = ref('');
-
+const $toast = useToast()
 async function login() {
   try {
     const res = await api.post('/login', {
       correo: correo.value,
       contraseña: contraseña.value
     });
-    alert('Bienvenido, ' + res.data.nombre);
+     $toast.success( `Bienvenido ${res.data.nombre} `);
     localStorage.setItem('idUsuario', res.data.idUsuario);
     router.push('/home');
   } catch (err) {
-    alert('Error al iniciar sesión: ' + err.response.data.error);
+     $toast.error("Error al iniciar sesion");
   }
 }
 </script>

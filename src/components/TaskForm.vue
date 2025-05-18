@@ -53,6 +53,7 @@
 <script setup>
 import { ref } from 'vue';
 import api from '../api';
+import { useToast } from 'vue-toast-notification';
 
 defineEmits(['refresh-tasks']);//definición para refrescar la página
 
@@ -60,7 +61,7 @@ const titulo = ref('');
 const descripcion = ref('');
 const fecha_vencimiento = ref('');
 const estado = ref('pendiente');
-
+const $toast = useToast()
 async function crearTarea() {
   try {
     const idUsuario = localStorage.getItem('idUsuario');
@@ -71,7 +72,7 @@ async function crearTarea() {
       estado: estado.value,
       idUsuario: idUsuario
     });
-    alert('Tarea creada exitosamente');
+    $toast.success(`La tarea: ${titulo.value} fue creada correctamente para el ${fecha_vencimiento.value}`);
 
     // Limpiar el formulario
     titulo.value = '';
@@ -80,8 +81,7 @@ async function crearTarea() {
     estado.value = 'pendiente';
 
   } catch (err) {
-    console.error('Error al crear tarea:', err);
-    alert('Error al crear la tarea');
+     $toast.success(`La tarea: ${titulo.value} fue creada correctamente para el ${fecha_vencimiento.value}`);
   }
 
 emit('refresh-tasks');

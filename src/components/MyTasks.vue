@@ -1,12 +1,12 @@
 <script setup>
 import { ref, watch } from 'vue';
 import api from '../api';
-
+import { useToast } from 'vue-toast-notification';
 defineProps(['tareas']);
 defineEmits(['refresh-tasks']);
 
 const tareaEditada = ref(null);
-
+const $toast = useToast()
 function editarTarea(tarea) {
   tareaEditada.value = { ...tarea };
 }
@@ -15,11 +15,10 @@ async function guardarCambios() {
   try {
     await api.put(`/tareas/${tareaEditada.value.idTarea}`, tareaEditada.value);
     tareaEditada.value = null;
-    alert('Tarea actualizada');
+    $toast.success("Tarea actualizada");
     
   } catch (err) {
-    console.error('Error al actualizar tarea:', err);
-    alert('Error al actualizar la tarea');
+     $toast.error("Error al actualizar tarea");
   }
   emit('refresh-tasks');
   

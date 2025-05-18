@@ -23,6 +23,7 @@
           <li><a href="#conocer">Conocer</a></li>
           <li><router-link to="/login">Iniciar sesion</router-link></li>
           <li><router-link to="/register">Registrarse</router-link></li>
+          <li v-if="isLoggedIn"><a href="#" @click.prevent="handleLogout">Cerrar sesion</a></li>
         </ul>
         
         <!-- Mobile Navigation (shown when hamburger is clicked) -->
@@ -32,6 +33,7 @@
             <li><a to="#conocer" @click="closeMobileMenu">Conocer</A></li>
             <li><router-link to="/login" @click="closeMobileMenu">Iniciar sesion</router-link></li>
             <li><router-link to="/register" @click="closeMobileMenu">Registrarse</router-link></li>
+            <li v-if="isLoggedIn"><a href="#" @click.prevent="handleLogout">Cerrar sesion</a></li>
           </ul>
         </transition>
       </div>
@@ -39,12 +41,14 @@
   </template>
   
   <script>
+import { useLogout } from '@/composables/useLogout'
   export default {
     name: 'Navbar',
     data() {
       return {
         isMobileMenuOpen: false,
-        isMobileView: false
+        isMobileView: false,
+         isLoggedIn: false
       }
     },
     methods: {
@@ -59,11 +63,21 @@
         if (!this.isMobileView) {
           this.isMobileMenuOpen = false
         }
-      }
+      },
+      handleLogout() {
+      const { logout } = useLogout();
+      logout();
+      this.closeMobileMenu(); // Cierra el menú móvil si está abierto
+    }, checkLoginStatus() {
+      // Verificar si existe idUsuario en localStorage
+      this.isLoggedIn = !!localStorage.getItem('idUsuario');
+    }
     },
     mounted() {
-      this.checkScreenSize()
-      window.addEventListener('resize', this.checkScreenSize)
+this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize);
+    this.checkLoginStatus(); 
+    window.addEventListener('storage', this.checkLoginStatus);
     },
     beforeUnmount() {
       window.removeEventListener('resize', this.checkScreenSize)
