@@ -21,7 +21,7 @@
         </div>
         <button type="submit" class="btn-registrar">Registrarse</button>
         <button type="button" @click="cancelarRegistro" class="btn-cancelar">Cancelar</button>
-        <a href="http://localhost:5173/" class="sin-registro">Continuar sin registrarme</a>
+        <a href="http://localhost:5174/" class="sin-registro">Continuar sin registrarme</a>
       </form>
     </div>
   </div>
@@ -31,9 +31,10 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '../api'; // ajusta la ruta según tu proyecto
+import { useToast } from 'vue-toast-notification';
 
 const router = useRouter();
-
+const $toast = useToast()
 const nombre = ref('');
 const edad = ref('');
 const correo = ref('');
@@ -47,14 +48,14 @@ async function registrarUsuario() {
       correo: correo.value,
       contraseña: contraseña.value
     });
-    alert('Usuario registrado correctamente');
+      $toast.success('Usuario registrado correctamente');
     router.push('/login'); // redirige al login después del registro
   } catch (err) {
-  console.error('Error al registrar usuario:', err);
+  $toast.error("Error al registrar usuario");
   if (err.response && err.response.data) {
-    alert('Error al registrar usuario: ' + JSON.stringify(err.response.data.error));
+    $toast.error("Error al registrar usuario");
   } else {
-    alert('Error al registrar usuario (no se pudo conectar al servidor)');
+    $toast.error("Error al registrar usuario, problemas de servidor");
   }
 }
 
