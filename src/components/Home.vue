@@ -35,27 +35,15 @@ onMounted(() => {
 </script>
 
 <template>
+  
   <section>
     <TaskForm @task-created="cargarTareas" />
     <MyTasks :tareas="tareas" @refresh-tasks="cargarTareas" />
-    <button @click="logout" class="logout-button">Cerrar Sesión</button>
+    
   </section>
 </template>
 
 <style scoped>
-.logout-button {
-  margin-top: 20px;
-  background-color: #000;
-  color: white;
-  border: none;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 25px;
-  cursor: pointer;
-  width: 100%;
-}
-.logout-button:hover {
-  background-color: #333;
-}
+
+
 </style>
