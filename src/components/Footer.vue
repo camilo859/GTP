@@ -91,6 +91,7 @@
     background-color: #2c3e50;
     color: #ecf0f1;
     padding: 60px 0 20px;
+     margin-top: 33%;
     font-size: 14px;
     font-family: Arial, sans-serif;
   }
